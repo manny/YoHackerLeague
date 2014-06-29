@@ -20,12 +20,13 @@ def update_events():
     r = requests.get(
         "http://hackerleague.org/api/v1/hackathons.json")
     for event in r.json():
-        if event.get('location').get('state') is "New York":
+        if event.get('location').get('state') == "New York":
             update_collection(event)
-            print 
 
 def update_collection(event):
-    
+    entry = hackathons.find_one({"name": event['name']})
+    if entry is None:
+        hackathons.insert({"name" : event['name']})
+        yo_all(api_key)
 
-
-yo_all(api_key)
+update_events()
