@@ -2,15 +2,13 @@
 
 from flask import json, jsonify
 from pymongo import MongoClient
+from key import api_key
 import requests
-import os
 
 
 client = MongoClient()
 db = client['yo']
 hackathons = db['hackathons']
-
-api_key = os.environ['API_KEY']
 
 def yo_all(token):
     requests.post("http://api.justyo.co/yoall/", 
